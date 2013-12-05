@@ -2,7 +2,7 @@
 /*global require, applicationContext */
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief A TODO-List Foxx-Application written for ArangoDB
+/// @brief A user profile management Foxx  written for ArangoDB and Angular JS
 ///
 /// @file
 ///
@@ -32,53 +32,64 @@
   "use strict";
   var Foxx = require("org/arangodb/foxx"),
     ArangoError = require("org/arangodb").ArangoError,
-    Todos = require("./repositories/todos").Repository,
-    Todo = require("./models/todo").Model,
+    Profiles = require("./repositories/todos").Repository,
+    Profile = require("./models/todo").Model,
     _ = require("underscore"),
     controller,
-    todos;
-
+    profiles;
   controller = new Foxx.Controller(applicationContext);
 
-  todos = new Todos(controller.collection("todos"), {
-    model: Todo
+  profiles = new Profiles(controller.collection("profiles"), {
+    model: Profile
   });
 
-  /** Lists of all Todos
+  /** Lists of all Profiles
    *
-   * This function simply returns the list of all todos.
+   * This function simply returns the list of all profiless.
    */
-
-  controller.get('/todos', function (req, res) {
-    res.json(_.map(todos.all(), function (todo) {
-      return todo.forClient();
+  controller.get('/user', function (req, res) {
+    res.json(_.map(profiles.all(), function (p) {
+      return p.simpleList();
     }));
   });
 
-  /** Creates a new Todo
+  /** List a specific profiles
    *
-   * Creates a new Todo-Item. The information has to be in the
+   * This function returns detailed information of one profile.
+   */
+  controller.get('/user/:id', function (req, res) {
+    var id = req.params("id");
+    res.json(profiles.forClient(id));
+  }).pathParam("id", {
+    description: "The id of the profile",
+    type: "string"
+  });
+
+  /** Creates a new Profile
+   *
+   * Creates a new user profile. The information has to be in the
    * requestBody.
    */
 
-  controller.post('/todos', function (req, res) {
+  controller.post('/user', function (req, res) {
+    // TODO!
     var todo = req.params("todo");
     res.json(todos.save(todo));
   }).bodyParam("todo", "The Todo you want to create", Todo);
 
-  /** Updates a Todo
+  /** Updates a Profile
    *
-   * Changes a Todo-Item. The information has to be in the
+   * Changes a Profile-Item. The information has to be in the
    * requestBody.
    */
 
-  controller.put("/todos/:id", function (req, res) {
+  controller.put("/user/:id", function (req, res) {
+    // TODO!
     var id = req.params("id"),
-      todo = req.params("todo");
-      console.log(id);
-    res.json(todos.replaceById(id, todo));
+      user = req.params("user");
+    res.json(profiles.replaceById(id, user));
   }).pathParam("id", {
-    description: "The id of the Todo-Item",
+    description: "The id of the profile",
     type: "string"
   }).bodyParam("todo", "The Todo you want your old one to be replaced with", Todo);
 
@@ -87,12 +98,12 @@
    * Removes a Todo-Item.
    */
 
-  controller.del("/todos/:id", function (req, res) {
+  controller.del("/user/:id", function (req, res) {
     var id = req.params("id");
-    todos.removeById(id);
+    profiles.removeById(id);
     res.json({ success: true });
   }).pathParam("id", {
-    description: "The ID of the Todo-Item",
+    description: "The ID of the profile.",
     type: "string"
   }).errorResponse(ArangoError, 404, "The document could not be found");
 }());
