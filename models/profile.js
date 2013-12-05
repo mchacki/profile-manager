@@ -2,7 +2,7 @@
 /*global require, exports */
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief A TODO-List Foxx-Application written for ArangoDB
+/// @brief A user profile management Foxx  written for ArangoDB and Angular JS
 ///
 /// @file
 ///
@@ -31,19 +31,24 @@
 (function () {
   "use strict";
   var Foxx = require("org/arangodb/foxx"),
-    Todo;
+    Profile;
 
-  Todo = Foxx.Model.extend({
+  Profile = Foxx.Model.extend({
     // Instance Properties
   }, {
     // "Class" Properties
     attributes: {
       _key: "string",
-      completed: "boolean",
-      order: "integer",
-      title: "string"
+      name: "string"
+    },
+
+    simpleList: function() {
+      return {
+        "_key": this.get("_key"),
+        "name": this.get("name")
+      };
     }
   });
 
-  exports.Model = Todo;
+  exports.Model = Profile;
 }());
