@@ -34,19 +34,12 @@
     Profile;
 
   Profile = Foxx.Model.extend({
-    // Instance Properties
   }, {
     // "Class" Properties
     attributes: {
       _key: "string",
-      name: "string"
-    },
-
-    simpleList: function() {
-      return {
-        "_key": this.get("_key"),
-        "name": this.get("name")
-      };
+      name: "string",
+      email: "string"
     }
   });
 

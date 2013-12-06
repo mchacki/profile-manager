@@ -1,9 +1,8 @@
 /*jslint indent: 2, nomen: true, maxlen: 100, white: true, plusplus: true, unparam: true */
-/*global todos*/
 /*global require, applicationContext*/
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief A TODO-List Foxx-Application written for ArangoDB
+/// @brief A profile management Foxx written for ArangoDB and AngularJS
 ///
 /// @file
 ///
@@ -35,10 +34,10 @@
   "use strict";
   var console = require("console"),
     db = require("org/arangodb").db,
-    todos = applicationContext.collectionName("todos");
+    profiles = applicationContext.collectionName("profiles");
 
-  if (db._collection(todos) === null) {
-    db._create(todos);
+  if (db._collection(profiles) === null) {
+    db._create(profiles);
   } else if (applicationContext.isProduction) {
     console.warn("collection '%s' already exists. Leaving it untouched.", todos);
   }

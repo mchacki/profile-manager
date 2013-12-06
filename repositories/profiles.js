@@ -2,7 +2,7 @@
 /*global require, exports*/
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief A TODO-List Foxx-Application written for ArangoDB
+/// @brief A user profile management Foxx  written for ArangoDB and Angular JS
 ///
 /// @file This Document represents the repository communicating with ArangoDB
 ///
@@ -33,17 +33,17 @@
 
   var _ = require("underscore"),
     Foxx = require("org/arangodb/foxx"),
-    Todos;
+    Profiles;
 
-  Todos = Foxx.Repository.extend({
+  Profiles = Foxx.Repository.extend({
     // Display all elements in the collection
     all: function () {
-      return _.map(this.collection.toArray(), function (rawTodo) {
-        var todo = new this.modelPrototype(rawTodo);
-        return todo;
+      return _.map(this.collection.toArray(), function (rawProfile) {
+        var profile = new this.modelPrototype(rawProfile);
+        return profile;
       }, this);
     }
   });
 
-  exports.Repository = Todos;
+  exports.Repository = Profiles;
 }());

@@ -1,43 +1,35 @@
 {
   "name": "profile",
   "version": "1.0.0",
-  "description": "An Application to mange user profiles. Frontend build with AngularJS",
+  "description": "An Application to mange user profiles. Frontend build with AngularJS.",
   "author": "Michael Hackstein",
   "license": "Apache 2 License",
-
   "repository": {
     "type": "git",
     "url": "https://github.com/mchacki/profile-manager.git"
   },
-
   "keywords": [
     "profile",
     "demo"
   ],
-
   "engines": {
     "arangodb": "1.4"
   },
-
   "controllers": {
     "/": "profile.js"
   },
-
   "setup": "scripts/setup.js",
-
   "assets": {
     "index.html": {
       "files": [
         "assets/index.html"
       ]
     },
-
     "application.js": {
       "files" : [
-        "assets/js/app.js",
+        "assets/app.js"
       ]
     }
-
   },
   "lib": "."
 }

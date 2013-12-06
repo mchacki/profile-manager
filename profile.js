@@ -32,8 +32,8 @@
   "use strict";
   var Foxx = require("org/arangodb/foxx"),
     ArangoError = require("org/arangodb").ArangoError,
-    Profiles = require("./repositories/todos").Repository,
-    Profile = require("./models/todo").Model,
+    Profiles = require("./repositories/profiles").Repository,
+    Profile = require("./models/profile").Model,
     _ = require("underscore"),
     controller,
     profiles;
@@ -49,7 +49,7 @@
    */
   controller.get('/user', function (req, res) {
     res.json(_.map(profiles.all(), function (p) {
-      return p.simpleList();
+      return p.forClient();
     }));
   });
 
@@ -72,10 +72,9 @@
    */
 
   controller.post('/user', function (req, res) {
-    // TODO!
-    var todo = req.params("todo");
-    res.json(todos.save(todo));
-  }).bodyParam("todo", "The Todo you want to create", Todo);
+    var user = req.params("user");
+    res.json(profiles.save(user));
+  }).bodyParam("user", "The profile you want to create", Profile);
 
   /** Updates a Profile
    *
@@ -84,14 +83,13 @@
    */
 
   controller.put("/user/:id", function (req, res) {
-    // TODO!
     var id = req.params("id"),
       user = req.params("user");
     res.json(profiles.replaceById(id, user));
   }).pathParam("id", {
     description: "The id of the profile",
     type: "string"
-  }).bodyParam("todo", "The Todo you want your old one to be replaced with", Todo);
+  }).bodyParam("user", "The Profile you want your old one to be replaced with", Profile);
 
   /** Removes a Todo
    *
