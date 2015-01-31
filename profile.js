@@ -35,11 +35,12 @@
     Profiles = require("./repositories/profiles").Repository,
     Profile = require("./models/profile").Model,
     _ = require("underscore"),
+    joi = require("joi"),
     controller,
     profiles;
   controller = new Foxx.Controller(applicationContext);
 
-  profiles = new Profiles(controller.collection("profiles"), {
+  profiles = new Profiles(applicationContext.collectionName("profiles"), {
     model: Profile
   });
 
@@ -62,7 +63,7 @@
     res.json(profiles.forClient(id));
   }).pathParam("id", {
     description: "The id of the profile",
-    type: "string"
+    type: joi.string()
   });
 
   /** Creates a new Profile
@@ -74,7 +75,10 @@
   controller.post('/user', function (req, res) {
     var user = req.params("user");
     res.json(profiles.save(user));
-  }).bodyParam("user", "The profile you want to create", Profile);
+  }).bodyParam("user", {
+    description: "The profile you want to create", 
+    type: Profile
+  });
 
   /** Updates a Profile
    *
@@ -88,8 +92,11 @@
     res.json(profiles.replaceById(id, user));
   }).pathParam("id", {
     description: "The id of the profile",
-    type: "string"
-  }).bodyParam("user", "The Profile you want your old one to be replaced with", Profile);
+    type: joi.string()
+  }).bodyParam("user", {
+    description: "The Profile you want your old one to be replaced with", 
+    type: Profile
+  });
 
   /** Removes a Todo
    *
@@ -102,6 +109,6 @@
     res.json({ success: true });
   }).pathParam("id", {
     description: "The ID of the profile.",
-    type: "string"
+    type: joi.string()
   }).errorResponse(ArangoError, 404, "The document could not be found");
 }());
