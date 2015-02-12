@@ -39,6 +39,6 @@
   if (db._collection(profiles) === null) {
     db._create(profiles);
   } else if (applicationContext.isProduction) {
-    console.warn("collection '%s' already exists. Leaving it untouched.", todos);
+    console.warn("collection '%s' already exists. Leaving it untouched.", profiles);
   }
 }());
