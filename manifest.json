@@ -1,6 +1,6 @@
 {
   "name": "profile",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "An application to manage user profiles. Frontend built with AngularJS.",
   "author": "Michael Hackstein",
   "license": "Apache 2 License",
@@ -21,16 +21,14 @@
   "scripts" : {
     "setup": "scripts/setup.js"
   },
-  "assets": {
-    "index.html": {
-      "files": [
-        "assets/index.html"
-      ]
+  "files": {
+    "/index.html": {
+      "path": "assets/index.html",
+      "gzip": false
     },
-    "application.js": {
-      "files" : [
-        "assets/app.js"
-      ]
+    "/application.js": {
+      "path" : "assets/app.js",
+      "gzip": false
     }
   },
   "lib": "."
