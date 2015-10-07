@@ -40,7 +40,7 @@
     profiles;
   controller = new Foxx.Controller(applicationContext);
 
-  profiles = new Profiles(applicationContext.collectionName("profiles"), {
+  profiles = new Profiles(applicationContext.collection("profiles"), {
     model: Profile
   });
 
