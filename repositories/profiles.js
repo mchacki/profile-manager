@@ -39,7 +39,7 @@
     // Display all elements in the collection
     all: function () {
       return _.map(this.collection.toArray(), function (rawProfile) {
-        var profile = new this.modelPrototype(rawProfile);
+        var profile = new this.model(rawProfile);
         return profile;
       }, this);
     }
