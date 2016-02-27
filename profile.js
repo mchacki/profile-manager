@@ -60,7 +60,7 @@
    */
   controller.get('/user/:id', function (req, res) {
     var id = req.params("id");
-    res.json(profiles.forClient(id));
+    res.json(profiles.byId(id).forClient());
   }).pathParam("id", {
     description: "The id of the profile",
     type: joi.string()
@@ -98,9 +98,9 @@
     type: Profile
   });
 
-  /** Removes a Todo
+  /** Removes a Profile
    *
-   * Removes a Todo-Item.
+   * Removes a Profile document.
    */
 
   controller.del("/user/:id", function (req, res) {
